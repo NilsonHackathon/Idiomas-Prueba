@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\categorycontroller;
+use App\Http\Controllers\productcontroller;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,4 +19,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+Route::middleware('auth')->group(function () {
+    Route::resource('products', productcontroller::class);
+    Route::resource('categories', categorycontroller::class);
+});
+
+require __DIR__ . '/auth.php';
