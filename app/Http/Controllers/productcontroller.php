@@ -38,7 +38,7 @@ class productcontroller extends Controller
         try {
             $validated = $request->validate([
                 'name' => 'required|string|max:255',
-                'price' => 'required|numeric',
+                'price' => 'required|numeric|min:0',
                 'description' => 'nullable|string',
                 'category_id' => 'required|exists:categories,id',
             ]);
@@ -80,7 +80,7 @@ class productcontroller extends Controller
         try {
             $validated = $request->validate([
                 'name' => 'required|string|max:255',
-                'price' => 'required|numeric',
+                'price' => 'required|numeric|min:0',
                 'description' => 'nullable|string',
                 'category_id' => 'required|exists:categories,id',
             ]);
@@ -90,7 +90,7 @@ class productcontroller extends Controller
 
             return redirect()->route('products.index')->with('success', 'Producto actualizado correctamente.');
         } catch (Exception $e) {
-            return redirect()->route('products.editForm', $id)->with('error', 'Error al actualizar producto: ' . $e->getMessage());
+            return redirect()->route('products.edit', $id)->with('error', 'Error al actualizar producto: ' . $e->getMessage());
         }
     }
 
